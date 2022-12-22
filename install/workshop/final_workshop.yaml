@@ -1,0 +1,377 @@
+apiVersion: learningcenter.tanzu.vmware.com/v1beta1
+kind: Workshop
+metadata:
+  name: tap-development
+spec:
+  title: Experimental
+  description: Pre-release development version of the TAP Demo
+  vendor: vmware.com
+  difficulty: beginner
+  duration: 60m
+  url: https://github.com/tanzu-end-to-end/tap-workshop
+  content:
+    image: 192.168.49.2:30002/tanzu-e2e/eduk8s-tap-workshop:latest
+    files: github.com/ModernAppsNinja/tap-workshop?ref=development
+  session:
+    resources:
+      memory: 3Gi
+    env:
+    - name: GITEA_PASSWORD
+      value: VMware1!
+    - name: VIEW_CLUSTER_DOMAIN
+      value: tanzu.demo
+    - name: HARBOR_USER
+      value: admin
+    - name: HARBOR_PASSWORD
+      value: Harbor12345
+    namespaces:
+      budget: custom
+    applications:
+      terminal:
+        enabled: true
+        layout: split
+      console:
+        enabled: true
+      editor:
+        enabled: true
+      registry:
+        enabled: true
+    objects:
+    - apiVersion: v1
+      kind: LimitRange
+      metadata:
+        name: resource-limits
+      spec:
+        limits:
+        - type: PersistentVolumeClaim
+          max:
+            storage: 10Gi
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: $(session_namespace)-workshop-read-crb
+        namespace: $(session_namespace)
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: k8s-reader
+      subjects:
+      - kind: ServiceAccount
+        namespace: $(workshop_namespace)
+        name: $(service_account)
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: $(session_namespace)-workshop-rw-crb
+        namespace: $(session_namespace)
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: workshop-cluster-role
+      subjects:
+      - kind: ServiceAccount
+        namespace: $(workshop_namespace)
+        name: $(service_account)
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: $(session_namespace)-session-read-crb
+        namespace: $(session_namespace)
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: k8s-reader
+      subjects:
+      - kind: ServiceAccount
+        namespace: $(session_namespace)
+        name: default
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: $(session_namespace)-session-rw-crb
+        namespace: $(session_namespace)
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: workshop-cluster-role
+      subjects:
+      - kind: ServiceAccount
+        namespace: $(session_namespace)
+        name: default
+---
+apiVersion: learningcenter.tanzu.vmware.com/v1beta1
+kind: Workshop
+metadata:
+  name: tap-overview
+spec:
+  title: TAP Overview
+  description: An introduction to the Tanzu Application Platform
+  vendor: vmware.com
+  difficulty: beginner
+  duration: 30m
+  url: https://github.com/tanzu-end-to-end/tap-workshop
+  content:
+    image: harbor.tanzu.demo/tanzu-e2e/eduk8s-tap-workshop:latest
+    files: github.com/ModernAppsNinja/tap-workshop?ref=main
+  session:
+    resources:
+      memory: 3Gi
+    env:
+    - name: GITEA_PASSWORD
+      value: VMware1!
+    - name: VIEW_CLUSTER_DOMAIN
+      value: tanzu.demo
+    - name: HARBOR_USER
+      value: admin
+    - name: HARBOR_PASSWORD
+      value: Harbor12345
+    namespaces:
+      budget: custom
+    applications:
+      terminal:
+        enabled: true
+        layout: split
+      console:
+        enabled: true
+      editor:
+        enabled: true
+      registry:
+        enabled: true
+    objects:
+    - apiVersion: v1
+      kind: LimitRange
+      metadata:
+        name: resource-limits
+      spec:
+        limits:
+        - type: PersistentVolumeClaim
+          max:
+            storage: 10Gi
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: $(session_namespace)-workshop-read-crb
+        namespace: $(session_namespace)
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: k8s-reader
+      subjects:
+      - kind: ServiceAccount
+        namespace: $(workshop_namespace)
+        name: $(service_account)
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: $(session_namespace)-workshop-rw-crb
+        namespace: $(session_namespace)
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: workshop-cluster-role
+      subjects:
+      - kind: ServiceAccount
+        namespace: $(workshop_namespace)
+        name: $(service_account)
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: $(session_namespace)-session-read-crb
+        namespace: $(session_namespace)
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: k8s-reader
+      subjects:
+      - kind: ServiceAccount
+        namespace: $(session_namespace)
+        name: default
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: $(session_namespace)-session-rw-crb
+        namespace: $(session_namespace)
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: workshop-cluster-role
+      subjects:
+      - kind: ServiceAccount
+        namespace: $(session_namespace)
+        name: default
+---
+apiVersion: learningcenter.tanzu.vmware.com/v1beta1
+kind: TrainingPortal
+metadata:
+  name: tap-demos
+  annotations:
+    kapp.k14s.io/update-strategy: always-replace
+spec:
+  portal:
+    title: Tanzu Application Platform Demos
+    registration:
+      type: one-step
+      enabled: false
+    updates:
+      workshop: true
+    sessions:
+      maximum: 10
+  workshops:
+  - name: tap-overview
+    expires: 120m
+    orphaned: 20m
+    capacity: 20
+    reserved: 2
+  - name: tap-development
+    expires: 60m
+    orphaned: 20m
+    capacity: 10
+    reserved: 0
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: workshop-cluster-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - '*'
+- apiGroups:
+  - carto.run
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- apiGroups:
+  - conventions.carto.run
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- apiGroups:
+  - conventions.apps.tanzu.vmware.com
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- apiGroups:
+  - kpack.io
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- apiGroups:
+  - kappctrl.k14s.io
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- apiGroups:
+  - source.toolkit.fluxcd.io
+  resources:
+  - gitrepositories
+  verbs:
+  - '*'
+- apiGroups:
+  - source.apps.tanzu.vmware.com
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- apiGroups:
+  - tekton.dev
+  resources:
+  - taskruns
+  verbs:
+  - '*'
+- apiGroups:
+  - v1
+  resources:
+  - persistentvolumes
+  verbs:
+  - '*'
+- apiGroups:
+  - servicebinding.io
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- apiGroups:
+  - serving.knative.dev
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- apiGroups:
+  - messaging.knative.dev
+  resources:
+  - '*'
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - sources.knative.dev
+  resources:
+  - '*'
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - eventing.knative.dev
+  resources:
+  - '*'
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - flows.knative.dev
+  resources:
+  - '*'
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - networking.internal.knative.dev
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- apiGroups:
+  - bindings.labs.vmware.com
+  resources:
+  - '*'
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - sources.tanzu.vmware.com
+  resources:
+  - '*'
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - sources.triggermesh.io
+  resources:
+  - '*'
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups:
+  - rabbitmq.com
+  resources:
+  - '*'
+  verbs:
+  - get
+  - watch
+  - list

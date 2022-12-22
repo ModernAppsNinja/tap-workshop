@@ -1,0 +1,70 @@
+{
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": {
+        "annotations": {
+            "kapp-controller.carvel.dev/exclude-global-packages": "",
+            "kapp.k14s.io/identity": "v1;//Namespace/rabbitmq-system;v1",
+            "kapp.k14s.io/original": "{\"apiVersion\":\"v1\",\"kind\":\"Namespace\",\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"rabbitmq-operator\",\"app.kubernetes.io/name\":\"rabbitmq-system\",\"app.kubernetes.io/part-of\":\"rabbitmq\",\"kapp.k14s.io/app\":\"1671744270536853341\",\"kapp.k14s.io/association\":\"v1.2359aef3f359bc12abe48215b6fc961a\"},\"name\":\"rabbitmq-system\"}}",
+            "kapp.k14s.io/original-diff-md5": "46543c1576e50e634c4868bae47b383c"
+        },
+        "creationTimestamp": "2022-12-22T21:24:32Z",
+        "deletionTimestamp": "2022-12-22T21:34:46Z",
+        "labels": {
+            "app.kubernetes.io/component": "rabbitmq-operator",
+            "app.kubernetes.io/name": "rabbitmq-system",
+            "app.kubernetes.io/part-of": "rabbitmq",
+            "kapp.k14s.io/app": "1671744270536853341",
+            "kapp.k14s.io/association": "v1.2359aef3f359bc12abe48215b6fc961a",
+            "kubernetes.io/metadata.name": "rabbitmq-system"
+        },
+        "name": "rabbitmq-system",
+        "resourceVersion": "3419220",
+        "uid": "683d204f-a665-43b1-a994-952f67fd5036"
+    },
+    "spec": {
+        "finalizers": [
+            "kubernetes"
+        ]
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastTransitionTime": "2022-12-22T21:34:51Z",
+                "message": "Discovery failed for some groups, 1 failing: unable to retrieve the complete list of server APIs: claimable.services.apps.tanzu.vmware.com/v1alpha1: the server is currently unable to handle the request",
+                "reason": "DiscoveryFailed",
+                "status": "True",
+                "type": "NamespaceDeletionDiscoveryFailure"
+            },
+            {
+                "lastTransitionTime": "2022-12-22T21:34:52Z",
+                "message": "All legacy kube types successfully parsed",
+                "reason": "ParsedGroupVersions",
+                "status": "False",
+                "type": "NamespaceDeletionGroupVersionParsingFailure"
+            },
+            {
+                "lastTransitionTime": "2022-12-22T21:34:52Z",
+                "message": "All content successfully deleted, may be waiting on finalization",
+                "reason": "ContentDeleted",
+                "status": "False",
+                "type": "NamespaceDeletionContentFailure"
+            },
+            {
+                "lastTransitionTime": "2022-12-22T21:34:52Z",
+                "message": "All content successfully removed",
+                "reason": "ContentRemoved",
+                "status": "False",
+                "type": "NamespaceContentRemaining"
+            },
+            {
+                "lastTransitionTime": "2022-12-22T21:34:52Z",
+                "message": "All content-preserving finalizers finished",
+                "reason": "ContentHasNoFinalizers",
+                "status": "False",
+                "type": "NamespaceFinalizersRemaining"
+            }
+        ],
+        "phase": "Terminating"
+    }
+}
