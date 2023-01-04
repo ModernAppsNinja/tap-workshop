@@ -111,7 +111,7 @@ spec:
   duration: 30m
   url: https://github.com/tanzu-end-to-end/tap-workshop
   content:
-    image: harbor.tanzu.demo/tanzu-e2e/eduk8s-tap-workshop:latest
+    image: 192.168.49.2:30002/tanzu-e2e/eduk8s-tap-workshop:latest
     files: github.com/ModernAppsNinja/tap-workshop?ref=main
   session:
     resources:
