@@ -12,8 +12,10 @@ spec:
   duration: 30m
   url: https://github.com/tanzu-end-to-end/tap-workshop
   content:
-    image: #@ "harbor.{}/tanzu-e2e/eduk8s-tap-workshop:latest".format(data.values.ingress.domain)
-    files: #@ "github.com/{}/tap-workshop?ref={}".format(data.values.git.account,data.values.git.branch)
+    image: 192.168.49.2:30002/tanzu-e2e/eduk8s-tap-workshop:latest
+    files: github.com/ModernAppsNinja/tap-workshop?ref=main
+    #    image: #@ "harbor.{}/tanzu-e2e/eduk8s-tap-workshop:latest".format(data.values.ingress.domain)
+    #files: #@ "github.com/{}/tap-workshop?ref={}".format(data.values.git.account,data.values.git.branch)
   session:
     resources:
       memory: 3Gi
@@ -23,7 +25,7 @@ spec:
       - name: VIEW_CLUSTER_DOMAIN
         value: #@ data.values.tap.view_cluster_domain
       - name: HARBOR_USER
-        value: #@ data.values.harbor.user
+        value: admin
       - name: HARBOR_PASSWORD
         value: #@ data.values.harbor.adminPassword
     namespaces:

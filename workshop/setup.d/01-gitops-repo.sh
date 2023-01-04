@@ -15,17 +15,17 @@ git config user.email "gitea_admin@example.com"
 git add .
 git commit -a -m "Initial Commit"
 
-git remote add origin https://gitea_admin:$GITEA_PASSWORD@gitea.${INGRESS_DOMAIN}/gitea_admin/$REPO_NAME.git
+git remote add origin https://gitea_admin:$GITEA_PASSWORD@gitea.tanzu.demo:31132/gitea_admin/$REPO_NAME.git
 git push -u origin main
 
 cd ..
-git clone https://gitea_admin:$GITEA_PASSWORD@gitea.${INGRESS_DOMAIN}/gitea_admin/gitops-workloads.git
+git clone https://gitea_admin:$GITEA_PASSWORD@gitea.tanzu.demo:31132/gitea_admin/gitops-workloads.git
 git -C /home/eduk8s/gitops-workloads config user.name gitea_admin
 git -C /home/eduk8s/gitops-workloads config user.email "gitea_admin@example.com"
 
 envsubst < workload.yaml > gitops-workloads/workload-$SESSION_NAMESPACE.yaml
 
-git clone https://gitea_admin:$GITEA_PASSWORD@gitea.${INGRESS_DOMAIN}/gitea_admin/gitops-deliverables.git
+git clone https://gitea_admin:$GITEA_PASSWORD@gitea.tanzu.demo:31132/gitea_admin/gitops-deliverables.git
 git -C /home/eduk8s/gitops-deliverables config user.name gitea_admin
 git -C /home/eduk8s/gitops-deliverables config user.email "gitea_admin@example.com"
 

@@ -6,6 +6,10 @@ metadata:
     kapp.k14s.io/update-strategy: always-replace
 spec:
   portal:
+    credentials:
+      admin:
+        username: admin
+        password: VMware1!
     title: Tanzu Application Platform Demos
     registration:
       type: one-step
@@ -16,12 +20,12 @@ spec:
       maximum: 10
   workshops:
     - name: tap-overview
-      expires: 120m
-      orphaned: 20m
-      capacity: 20
-      reserved: 2
-    - name: tap-development
-      expires: 60m
-      orphaned: 20m
-      capacity: 10
-      reserved: 0
+      expires: 240h
+      orphaned: 240h
+      capacity: 2
+      reserved: 1
+      #    - name: tap-development
+      #expires: 60m
+      #orphaned: 20m
+      #capacity: 10
+      #reserved: 0
