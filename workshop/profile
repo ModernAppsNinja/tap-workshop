@@ -1,3 +1,3 @@
 export GITREPO=https://gitea.$INGRESS_DOMAIN/gitea_admin/$(cat repo.txt).git
 
-export IMAGE_TARGET=harbor.$INGRESS_DOMAIN/$SESSION_NAMESPACE/spring-sensors
+export IMAGE_TARGET=192.168.49.2:30002/$SESSION_NAMESPACE/spring-sensors
