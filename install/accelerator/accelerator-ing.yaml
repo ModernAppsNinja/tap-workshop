@@ -1,0 +1,29 @@
+apiVersion: v1
+items:
+- apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+          #    labels:
+          #learningcenter.tanzu.vmware.com/component: portal
+          #learningcenter.tanzu.vmware.com/portal.name: learning-center-guided
+    name: accelerator
+    namespace: accelerator-system
+  spec:
+    rules:
+    - host: accelerator.tanzu.demo
+      http:
+        paths:
+        - backend:
+            service:
+              name: acc-server
+              port:
+                number: 80
+          path: /
+          pathType: Prefix
+          #  status:
+          #  loadBalancer:
+          #ingress:
+          #- ip: 10.100.160.55
+kind: List
+metadata:
+  resourceVersion: ""
