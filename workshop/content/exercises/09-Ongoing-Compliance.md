@@ -31,5 +31,5 @@ Here, we see that a second build occurred a couple of hours after the first one,
 Security teams may want to view the posture of the whole application portfolio, and not just individual applications. Tanzu Application Platform provides a security dashboard that provides an expansive view, with the ability to navigate to specific workloads:
 
 ```dashboard:open-url
-url: https://tap-gui.{{ ENV_VIEW_CLUSTER_DOMAIN }}/security-analysis
+url: http://tap-gui.{{ ENV_VIEW_CLUSTER_DOMAIN }}/security-analysis
 ```
