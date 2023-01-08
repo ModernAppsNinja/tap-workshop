@@ -2,10 +2,8 @@ In the lab environment where this fork of the tap-workshop is used, we are using
 This file documents how to setup the minikubestart service. 
 
 - Enter the following command to create the service file:
-`sudo vim /etc/systemd/system/minikubestart.service`
-
-- When vim opens, enter the following text and save the file:
-```
+```sh
+sudo bash -c 'cat << EOF > /etc/systemd/system/minikubestart.service
 [Unit]
 Description=minikubestart
 
@@ -16,16 +14,15 @@ ExecStart=/usr/local/bin/minikubestart.sh
 
 [Install]
 WantedBy=multi-user.target
+EOF'
 ```
 
 - Enter the following command to set the permissions for this file to the correct value:
 `chmod 664 /etc/systemd/system/minikubestart.service`
 
 - Enter the following command to create the service ExecStart script:
-`sudo vim /usr/local/bin/minikubestart.sh`
-
-- When vim opens, enter the following text and save the file:
 ```
+sudo bash -c 'cat << EOF > /usr/local/bin/minikubestart.sh
 #!/bin/bash
   
 mkdir -p /home/viadmin/logs
@@ -50,6 +47,7 @@ do
                 echo "Minikube is running at: $(date)" >> /home/viadmin/logs/minikubestart.log
         fi
 done
+EOF'
 ```
 
 - Enter the following commands to set the correct ownership and permissions for minikubestart.sh
