@@ -52,7 +52,7 @@ EOF'
 
 - Enter the following commands to set the correct ownership and permissions for minikubestart.sh
 ```
-sudo chmod 744 /usr/local/bin/minikubestart.st
+sudo chmod 744 /usr/local/bin/minikubestart.sh
 # because systemd will run the service as the user viadmin, set viadmin as file owner to prevent permissions error
 sudo chown viadmin:viadmin /usr/local/bin/minikubestart.sh
 ```
